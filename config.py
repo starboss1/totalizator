@@ -9,6 +9,7 @@ class Config(object):
     CSRF_ENABLED = True
     PORT = 8000
     HOST = "localhost"
+    SECRET_KEY = 'course-work-totalizator-secret'
 
 
 class ProductionConfig(Config):
