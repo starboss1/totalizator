@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect
+from flask import Blueprint, render_template, flash, redirect, url_for
 from app.forms.UserLoginForm import UserLoginForm
 
 authentication_blueprint = Blueprint('authentication', __name__)
@@ -8,6 +8,6 @@ authentication_blueprint = Blueprint('authentication', __name__)
 def login():
     form = UserLoginForm()
     if form.validate_on_submit():
-        flash('Login="'+form.login.data+'", remember_me'+str(form.remember_me.data))
+        flash('Login="'+form.username.data+'", remember_me'+str(form.remember_me.data))
         return redirect('/')
     return render_template('authentication/login.html', title='Sign In', form=form)
