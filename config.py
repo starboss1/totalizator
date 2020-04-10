@@ -21,7 +21,6 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
-
 class ProductionConfig(Config):
     PORT = 80
     HOST = "0.0.0.0"
