@@ -3,7 +3,7 @@ from config import config_object
 from flask_migrate import Migrate
 from flask_user import UserManager
 from app.database.models import User
-from app.controllers import index_blueprint, authentication_blueprint
+from app.controllers import index_blueprint, authentication_blueprint, game_blueprint
 
 app = Flask(__name__)
 app.config.from_object(config_object)
@@ -19,6 +19,7 @@ db_queries.init_db(db, user_manager)
 
 app.register_blueprint(index_blueprint)
 app.register_blueprint(authentication_blueprint)
+app.register_blueprint(game_blueprint)
 
 from app.database import models
 #

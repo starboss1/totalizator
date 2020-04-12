@@ -72,6 +72,7 @@ class Event(db.Model):
 class Draw(db.Model):
     __tablename__ = 'draws'
 
+    events_amount = 15
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
     datetime_first_match = db.Column(db.DateTime, nullable=True)
@@ -82,6 +83,9 @@ class Draw(db.Model):
     def draw_status(self):
         if self.is_finished:
             return "finished"
+        if len(self.events) < self.events_amount:
+            return 'not_published'
+
         if self.datetime_first_match < datetime.now():
                 return "waiting_results"
         else:
