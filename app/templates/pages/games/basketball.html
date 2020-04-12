@@ -1,0 +1,40 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+    <section class="play-main">
+        <div class="container">
+            <h2 class="page-title">Basketball</h2>
+            <div class="row draws-row">
+                {% for draw in draws %}
+                    <div class="col-sm-6 draw-column">
+                        <a href="/play/{{ draw.id }}" class="draw-wrapper">
+                            <div class="draw-name">
+                                <div class="draw-name-main">{{ draw.name }}</div>
+                                <div class="draw-name-subtext">(Draw #{{ draw.id }})</div>
+                            </div>
+                            <div class="draw-countdown">
+                                <div class="draw-countdown-text">Remaining time</div>
+                                <div class="draw-countdown-wrapper" data-countdown="{{ draw.datetime_first_match }}">
+                                    <div class="js-days"></div>
+                                    <div class="divider">:</div>
+                                    <div class="js-hours"></div>
+                                    <div class="divider">:</div>
+                                    <div class="js-minutes"></div>
+                                    <div class="divider">:</div>
+                                    <div class="js-seconds"></div>
+                                </div>
+                            </div>
+
+                            <div class="draw-pool">
+                                <div class="draw-pool-text">Pool:</div>
+                                <div class="draw-pool-amount">
+                                    {{ draw.pool_amount }}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

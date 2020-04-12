@@ -1,8 +1,8 @@
-from app import db
+from app.database import db
 from datetime import datetime
 from functools import reduce
 
-from sqlalchemy import event
+from flask_sqlalchemy import event
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_user import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,16 +13,18 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128), server_default='')
+    password = db.Column(db.String(128), server_default='')
+    active = True
+
     balance = db.Column(db.Float, nullable=False, default=0)
     roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
     parlays = db.relationship('Parlay', back_populates='user')
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password, password)
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -145,7 +147,10 @@ def init_outcomes(*args, **kwargs):
     db.session.commit()
 
 
-# @event.listens_for(UserRoles.__tablename__, 'after_create')
-# def init_users(*args, **kwargs):
-# TODO: users
+@event.listens_for(UserRoles.__table__, 'after_create')
+def init_users(*args, **kwargs):
+    from app.database.db_queries import db_queries
+    db_queries.create_user(username="admin", password="admin", email='admin@gmail.com', is_admin=True)
+    db_queries.create_user(username='Default', password='default', email='default@gmail.com')
+    db.session.commit()
 

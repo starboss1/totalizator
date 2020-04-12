@@ -1,0 +1,34 @@
+{% extends 'common/layout.html' %}
+
+{% block content %}
+    <div class="container" style="padding-top: 50px">
+        <h2 class="text-center" style="margin-bottom: 20px">My parlays</h2>
+
+        <table class="table table-dark table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>
+                    Parlay ID
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Win sum
+                </th>
+            </tr>
+            </thead>
+            {% for parlay in parlays %}
+                <tr>
+                    <td>{{ parlay.id }}</td>
+                    <td>
+                        {{ parlay.amount }}
+                    </td>
+                    <td>
+                        {{ parlay.win_sum }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

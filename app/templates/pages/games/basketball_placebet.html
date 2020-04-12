@@ -1,0 +1,104 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+    <section class="placebet">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-5">
+                    <div class="sticky-wrapper">
+                        <div class="draw-info-wrapper">
+                            <div class="draw-info">
+                                <div class="draw-name">
+                                    <div class="draw-name-main">{{ draw.name }}</div>
+                                    <div class="draw-name-subtext">(Draw #{{ draw.id }})</div>
+                                </div>
+                                <div class="draw-countdown">
+                                    <div class="draw-countdown-text">Remaining time</div>
+                                    <div class="draw-countdown-wrapper"
+                                         data-countdown="{{ draw.datetime_first_match }}">
+                                        <div class="js-days"></div>
+                                        <div class="divider">:</div>
+                                        <div class="js-hours"></div>
+                                        <div class="divider">:</div>
+                                        <div class="js-minutes"></div>
+                                        <div class="divider">:</div>
+                                        <div class="js-seconds"></div>
+                                    </div>
+                                </div>
+
+                                <div class="draw-pool">
+                                    <div class="draw-pool-text">Pool:</div>
+                                    <div class="draw-pool-amount">
+                                        {{ draw.pool_amount }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bet-info">
+                                <form class="bet-wrapper" id="form-placebet" action="/play/{{ draw.id }}/placebet">
+                                    <input type="number" min="10" required class="input-placebet" placeholder="Amount"
+                                           name="amount">
+                                    <button type="submit" class="btn-custom green">Place a bet!</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-7">
+                    <form id="form-events">
+                        <table class="table table-events">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th class="text-left">
+                                    ID
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th class="text-right">
+                                    Outcome
+                                </th>
+                            </tr>
+                            </thead>
+                            {% for event in draw.events %}
+                                <tr class="event-wrapper">
+                                    <td class="event-index text-left">
+                                        {{ loop.index }}
+                                    </td>
+                                    <td class="event-name text-center">
+                                        {{ event.name }}
+                                    </td>
+                                    <td class="event-datetime text-center">
+                                        {{ event.datetime }}
+                                    </td>
+                                    <td class="event-outcomes text-right">
+                                        <div class="text-center" style="display: inline-block">
+                                            {% for outcome in possible_outcomes %}
+                                                <label class="outcome-label">
+                                                    <input type="radio" name="{{ event.id }}"
+                                                           value="{{ outcome.id }}">
+                                                    <span class="outcome-stylized">{{ outcome.name }}</span>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </form>
+                    <div class="draw-actions-wrapper">
+                        <button class="btn-custom js-parlay-random">Random select</button>
+                        <button class="btn-custom js-parlay-clear">Clear selection</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/placebet.js') }}"></script>
+{% endblock %}

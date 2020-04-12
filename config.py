@@ -20,6 +20,14 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+    USER_ENABLE_EMAIL = False
+    USER_ENABLE_USERNAME = True
+
+    USER_ENABLE_CONFIRM_EMAIL = False
+
+    USER_LOGIN_TEMPLATE = 'flask_user/login.html'
+    USER_REGISTER_TEMPLATE = 'flask_user/register.html'
+
 
 class ProductionConfig(Config):
     PORT = 80

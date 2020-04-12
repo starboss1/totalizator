@@ -1,0 +1,18 @@
+{% extends 'common/layout.html' %}
+
+{% from 'common/forms.html' import render_field, render_checkbox, render_submit_field %}
+
+{% block content %}
+    <div class="container">
+        <div class="form-wrapper">
+            <h2 class="form-title">Balance: {{ current_user.balance }}</h2>
+            <hr>
+            <h2 class="form-title">Replenish:</h2>
+            <form action="" method="post" class="form" role="form">
+                {{ form.hidden_tag() }}
+                {{ render_field(form.amount) }}
+                {{ render_submit_field(form.submit, tabindex=180) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
