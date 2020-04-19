@@ -1,0 +1,98 @@
+{% extends "common/layout.html" %}
+
+{% block title %}{{ super() }} - Adminka{% endblock %}
+
+{% block content %}
+    {% from "common/form_macros.html" import render_field, render_submit_field %}
+
+    <section class="first-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <p style="margin-bottom: 40px">
+                        <small><a href="/admin/draws">Back to draw list</a></small>
+                    </p>
+                    <h3>Draw #{{ draw.id }}</h3>
+
+                    <p><b>Name:</b> {{ draw.name }}</p>
+                    <p><b>Status:</b> {{ draw.draw_status }}</p>
+                    <p><b>Parlays accepted until:</b> {{ draw.datetime_first_match }}</p>
+
+                    <h4 style="margin-top: 60px">Events ({{ draw.events|length }}/{{ draw.events_amount }})</h4>
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Date of event
+                            </th>
+                            <th>
+                                Outcome
+                            </th>
+                        </tr>
+                        </thead>
+                        {% for event in draw.events %}
+                            <tr>
+                                <td>{{ event.id }}</td>
+                                <td>
+                                    {{ event.name }}
+                                </td>
+                                <td>
+                                    {{ event.datetime }}
+                                </td>
+                                <td>
+                                    {% if draw.draw_status == "waiting_results" %}
+                                        <select class="event-outcome-select" name="{{ event.id }}">
+                                            {% if event.outcome == None %}
+                                                <option value="" selected>
+                                                    -
+                                                </option>
+                                            {% endif %}
+                                            {% for outcome in possible_outcomes %}
+                                                <option value="{{ outcome.id }}"
+                                                        {% if event.outcome == outcome %}selected{% endif %}>
+                                                    {{ outcome.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    {% else %}
+                                        {{ event.outcome.name }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <div class="col-md-4">
+                    {% if draw.events|length < draw.events_amount %}
+                        <h3>Add new event</h3>
+                        <form class="form" method="post">
+                            {{ form.hidden_tag() }}
+                            {{ render_field(form.name) }}
+                            {{ render_field(form.date) }}
+                            {{ render_submit_field(form.submit) }}
+                        </form>
+                    {% else %}
+                        <h3>Published!</h3>
+                        {#                            <form class="form" method="post" action="{{ draw.id }}/publish">#}
+                        {#                                <input type="submit" class="btn btn-primary btn-form" value="Publish the draw!">#}
+                        {#                            </form>#}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

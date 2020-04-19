@@ -1,0 +1,64 @@
+{% block content %}
+    {% from "common/form_macros.html" import render_field, render_submit_field %}
+
+    <section class="first-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Draws list:</h3>
+
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Datetime of first match
+                            </th>
+                            <th>
+                                Pool
+                            </th>
+                        </tr>
+                        </thead>
+                        {% for draw in draws %}
+                            <tr>
+                                <td>{{ draw.id }}</td>
+                                <td>
+                                    <a href="/admin/draws/{{ draw.id }}">
+                                        {{ draw.name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ draw.draw_status }}
+                                </td>
+                                <td>
+                                    {{ draw.datetime_first_match }}
+                                </td>
+                                <td>
+                                    {{ draw.pool_amount }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <h3>Create draw</h3>
+                    <form class="form" method="post">
+                        {{ form.hidden_tag() }}
+                        {{ render_field(form.name) }}
+                        {{ render_field(form.add_random_events) }}
+                        {{ render_field(form.date) }}
+                        {{ render_submit_field(form.submit) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

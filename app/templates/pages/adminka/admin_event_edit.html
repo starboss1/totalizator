@@ -1,0 +1,15 @@
+{% extends "common/layout.html" %}
+
+{% block title %}{{ super() }} - Adminka{% endblock %}
+
+{% block content %}
+    {% from "common/form_macros.html" import render_field, render_submit_field %}
+
+    <section class="first-section">
+        <div class="container">
+            <form method="post" class="form">
+{#                {{ render_submit_field(form.submit) }}#}
+            </form>
+        </div>
+    </section>
+{% endblock %}

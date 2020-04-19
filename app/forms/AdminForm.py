@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, DateTimeLocalField
 from flask_wtf import FlaskForm
 
+__all__ = ['AdminCreateDrawForm', 'AdminCreateEventForm']
 
 class AdminCreateDrawForm(FlaskForm):
     name = StringField('Draw name', validators=[DataRequired()], render_kw={"placeholder": "Enter draw name:"})
