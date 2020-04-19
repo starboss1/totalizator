@@ -64,6 +64,9 @@ class DatabaseQueries:
             self.update_event_outcome(event.id,
                                       self.db.session.query(Outcome)[random.randrange(0, Outcome.query.count())])
             self.db.session.commit()
+    
+    def get_all_draws(self):
+        return Draw.query.order_by(Draw.id.desc()).all()
 
     def create_event(self, event_name, event_datetime, draw, outcome=None):
         if len(draw.events) >= draw.events_amount:
@@ -76,9 +79,6 @@ class DatabaseQueries:
 
         self.db.session.commit()
         return event
-
-    def get_all_draws(self):
-        return Draw.query.order_by(Draw.id.desc()).all()
 
     def get_draw_by_id(self, draw_id):
         return Draw.query.get(draw_id)

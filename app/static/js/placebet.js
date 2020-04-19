@@ -20,6 +20,7 @@ $(function () {
     });
 
     function placeBet(json) {
+        alert("hello");
         $.ajax({
             type: "POST",
             url: "/play/placebet",

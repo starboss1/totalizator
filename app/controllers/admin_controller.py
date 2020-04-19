@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, flash, request, jsonify, redirect
 
 from app.exceptions.database_exceptions import DrawEventsOverflowException
 from app.forms.AdminForm import *
-from app.database import db_queries
+from app.database.db_queries import db_queries
 
 admin_blueprint = Blueprint('admin', __name__)
 

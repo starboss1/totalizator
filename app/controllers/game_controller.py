@@ -10,7 +10,7 @@ game_blueprint = Blueprint('game', __name__)
 @game_blueprint.route('/play')
 def basket_play():
     draws = db_queries.get_pending_draws()
-    return render_template('pages/games/basketball.html')
+    return render_template('pages/games/basketball.html', draws = draws)
 
 
 @game_blueprint.route('/play/<draw_id>')
