@@ -10,7 +10,7 @@ game_blueprint = Blueprint('game', __name__)
 @game_blueprint.route('/play')
 def basket_play():
     draws = db_queries.get_pending_draws()
-    return render_template('pages/games/basketball.html', draws = draws)
+    return render_template('pages/games/basketball.html', draws=draws)
 
 
 @game_blueprint.route('/play/<draw_id>')
@@ -25,6 +25,7 @@ def draw_play(draw_id):
 @login_required
 def place_bet():
     json = request.get_json()
+    print('json = ', json)
     amount = json['info']['amount']
     if amount == '':
         raise PlaceBetException(message="Provide bet amount data")
