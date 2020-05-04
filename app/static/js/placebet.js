@@ -10,7 +10,7 @@ $(function () {
             "events": $formEvents.serializeArray()
         };
         console.log($formEvents);
-        //placeBet(json)
+        placeBet(json)
     });
 
     $(".js-parlay-random").click(function () {
@@ -22,7 +22,6 @@ $(function () {
     });
 
     function placeBet(json) {
-        alert("hello");
         $.ajax({
             type: "POST",
             url: "/play/placebet",
@@ -53,7 +52,6 @@ $(function () {
     }
 
     function randomChoice() {
-        alert("randomChoice");
         $formEvents.find('.event-outcomes').each(function () {
             let $inputs = $(this).find("input");
             console.log($inputs);
@@ -62,7 +60,6 @@ $(function () {
     }
 
     function clearAll() {
-        alert("clearAll");
         $formEvents.find('input').prop("checked", false);
     }
 });

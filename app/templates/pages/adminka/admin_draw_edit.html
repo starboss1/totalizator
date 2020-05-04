@@ -10,15 +10,15 @@
             <div class="row">
                 <div class="col-md-8">
                     <p style="margin-bottom: 40px">
-                        <small><a href="/admin/draws">Back to draw list</a></small>
+                        <small><a href="/admin/draws">Back to match list</a></small>
                     </p>
-                    <h3>Draw #{{ draw.id }}</h3>
+                    <h3>Match #{{ draw.id }}</h3>
 
-                    <p><b>Name:</b> {{ draw.name }}</p>
-                    <p><b>Status:</b> {{ draw.draw_status }}</p>
-                    <p><b>Parlays accepted until:</b> {{ draw.datetime_first_match }}</p>
+                    <p><b>Name:</b> {{ match.name }}</p>
+                    <p><b>Status:</b> {{ match.match_status }}</p>
+                    <p><b>Parlays accepted until:</b> {{ match.datetime_match }}</p>
 
-                    <h4 style="margin-top: 60px">Events ({{ draw.events|length }}/{{ draw.events_amount }})</h4>
+                    <h4 style="margin-top: 60px">Events ({{ match.events|length }}/{{ match.events_amount }})</h4>
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
@@ -36,7 +36,7 @@
                             </th>
                         </tr>
                         </thead>
-                        {% for event in draw.events %}
+                        {% for event in match.events %}
                             <tr>
                                 <td>{{ event.id }}</td>
                                 <td>
@@ -46,7 +46,7 @@
                                     {{ event.datetime }}
                                 </td>
                                 <td>
-                                    {% if draw.draw_status == "waiting_results" %}
+                                    {% if match.match_status == "waiting_results" %}
                                         <select class="event-outcome-select" name="{{ event.id }}">
                                             {% if event.outcome == None %}
                                                 <option value="" selected>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    {% if draw.events|length < draw.events_amount %}
+                    {% if match.events|length < match.events_amount %}
                         <h3>Add new event</h3>
                         <form class="form" method="post">
                             {{ form.hidden_tag() }}

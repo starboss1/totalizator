@@ -9,16 +9,16 @@ game_blueprint = Blueprint('game', __name__)
 
 @game_blueprint.route('/play')
 def basket_play():
-    draws = db_queries.get_pending_draws()
-    return render_template('pages/games/basketball.html', draws=draws)
+    matches = db_queries.get_pending_matches()
+    return render_template('pages/games/basketball.html', matches=matches)
 
 
-@game_blueprint.route('/play/<draw_id>')
+@game_blueprint.route('/play/<match_id>')
 @login_required
-def draw_play(draw_id):
-    draw = db_queries.get_draw_by_id(draw_id)
+def draw_play(match_id):
+    match = db_queries.get_match_by_id(match_id)
     possible_outcomes = db_queries.get_all_possible_outcomes()
-    return render_template('pages/games/basketball_placebet.html', draw=draw, possible_outcomes=possible_outcomes)
+    return render_template('pages/games/basketball_placebet.html', match=match, possible_outcomes=possible_outcomes)
 
 
 @game_blueprint.route('/play/placebet', methods=['POST'])
@@ -32,7 +32,8 @@ def place_bet():
 
     events_data = json['events']
     db_queries.place_bet(amount=amount, events_data=events_data, user=current_user)
-    return jsonify({"message": "Bet placed successfully"})
+    response = jsonify({"message": "Bet placed successfully"})
+    return response
 
 
 @game_blueprint.errorhandler(PlaceBetException)

@@ -25,8 +25,8 @@ class Config(object):
 
     USER_ENABLE_CONFIRM_EMAIL = False
 
-    USER_LOGIN_TEMPLATE = 'flask_user/login.html'
-    USER_REGISTER_TEMPLATE = 'flask_user/register.html'
+    USER_LOGIN_TEMPLATE = 'authentication/login.html'
+    USER_REGISTER_TEMPLATE = 'register/register.html'
 
 
 class ProductionConfig(Config):

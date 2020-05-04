@@ -9,17 +9,17 @@
     <section class="play-main">
         <div class="container">
             <h2 class="page-title">Basketball</h2>
-            <div class="row draws-row">
-                {% for draw in draws %}
-                    <div class="col-sm-6 draw-column">
-                        <a href="/play/{{ draw.id }}" class="draw-wrapper">
-                            <div class="draw-name">
-                                <div class="draw-name-main">{{ draw.name }}</div>
-                                <div class="draw-name-subtext">(Draw #{{ draw.id }})</div>
+            <div class="row matches-row">
+                {% for match in matches %}
+                    <div class="col-sm-6 match-column">
+                        <a href="/play/{{ match.id }}" class="match-wrapper">
+                            <div class="match-name">
+                                <div class="match-name-main">{{ match.name }}</div>
+                                <div class="match-name-subtext">(Match #{{ match.id }})</div>
                             </div>
-                            <div class="draw-countdown">
-                                <div class="draw-countdown-text">Remaining time</div>
-                                <div class="draw-countdown-wrapper" data-countdown="{{ draw.datetime_first_match }}">
+                            <div class="match-countdown">
+                                <div class="match-countdown-text">Remaining time</div>
+                                <div class="Match-countdown-wrapper" data-countdown="{{ match.datetime_match }}">
                                     <div class="js-days"></div>
                                     <div class="divider">:</div>
                                     <div class="js-hours"></div>
@@ -30,10 +30,10 @@
                                 </div>
                             </div>
 
-                            <div class="draw-pool">
-                                <div class="draw-pool-text">Pool:</div>
-                                <div class="draw-pool-amount">
-                                    {{ draw.pool_amount }}
+                            <div class="match-pool">
+                                <div class="match-pool-text">Pool:</div>
+                                <div class="match-pool-amount">
+                                    {{ match.pool_amount }}
                                 </div>
                             </div>
                         </a>
