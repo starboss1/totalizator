@@ -1,3 +1,5 @@
+{% extends "common/layout.html" %}
+
 {% block content %}
     {% from "common/forms.html" import render_field, render_submit_field %}
 
@@ -27,33 +29,32 @@
                             </th>
                         </tr>
                         </thead>
-                        {% for draw in draws %}
+                        {% for match in matches %}
                             <tr>
-                                <td>{{ draw.id }}</td>
+                                <td>{{ match.id }}</td>
                                 <td>
-                                    <a href="/admin/draws/{{ draw.id }}">
-                                        {{ draw.name }}
+                                    <a href="/admin/matches/{{ match.id }}">
+                                        {{ match.name }}
                                     </a>
                                 </td>
                                 <td>
-                                    {{ draw.draw_status }}
+                                    {{ match.match_status }}
                                 </td>
                                 <td>
-                                    {{ draw.datetime_match }}
+                                    {{ match.datetime_match }}
                                 </td>
                                 <td>
-                                    {{ draw.pool_amount }}
+                                    {{ match.pool_amount }}
                                 </td>
                             </tr>
                         {% endfor %}
                     </table>
                 </div>
                 <div class="col-md-4">
-                    <h3>Create draw</h3>
+                    <h3>Create match</h3>
                     <form class="form" method="post">
                         {{ form.hidden_tag() }}
                         {{ render_field(form.name) }}
-                        {{ render_field(form.add_random_events) }}
                         {{ render_field(form.date) }}
                         {{ render_submit_field(form.submit) }}
                     </form>

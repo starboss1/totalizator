@@ -10,15 +10,15 @@
             <div class="row">
                 <div class="col-md-8">
                     <p style="margin-bottom: 40px">
-                        <small><a href="/admin/draws">Back to match list</a></small>
+                        <small><a href="/admin/matches">Back to match list</a></small>
                     </p>
-                    <h3>Match #{{ draw.id }}</h3>
+                    <h3>Match #{{ match.id }}</h3>
 
                     <p><b>Name:</b> {{ match.name }}</p>
                     <p><b>Status:</b> {{ match.match_status }}</p>
-                    <p><b>Parlays accepted until:</b> {{ match.datetime_match }}</p>
+                    <p><b>Bets accepted until:</b> {{ match.datetime_match }}</p>
 
-                    <h4 style="margin-top: 60px">Events ({{ match.events|length }}/{{ match.events_amount }})</h4>
+                    <h4 style="margin-top: 60px">Events</h4>
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
@@ -29,7 +29,7 @@
                                 Name
                             </th>
                             <th>
-                                Date of event
+                                Coefficient
                             </th>
                             <th>
                                 Outcome
@@ -43,7 +43,7 @@
                                     {{ event.name }}
                                 </td>
                                 <td>
-                                    {{ event.datetime }}
+                                    {{ event.coefficient }}
                                 </td>
                                 <td>
                                     {% if match.match_status == "waiting_results" %}
@@ -67,23 +67,22 @@
                             </tr>
                         {% endfor %}
                     </table>
+                {% if match.match_status == "waiting_results" %}
+                    <a class="btn btn-primary" id="save-outcomes-btn" href="#" role="button">Link</a>
+                {% endif %}
                 </div>
 
                 <div class="col-md-4">
-                    {% if match.events|length < match.events_amount %}
                         <h3>Add new event</h3>
                         <form class="form" method="post">
                             {{ form.hidden_tag() }}
                             {{ render_field(form.name) }}
-                            {{ render_field(form.date) }}
+                            {{ render_field(form.coefficient) }}
                             {{ render_submit_field(form.submit) }}
                         </form>
-                    {% else %}
-                        <h3>Published!</h3>
                         {#                            <form class="form" method="post" action="{{ draw.id }}/publish">#}
                         {#                                <input type="submit" class="btn btn-primary btn-form" value="Publish the draw!">#}
                         {#                            </form>#}
-                    {% endif %}
 
                 </div>
             </div>

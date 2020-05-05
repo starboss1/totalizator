@@ -22,11 +22,12 @@ class Config(object):
 
     USER_ENABLE_EMAIL = False
     USER_ENABLE_USERNAME = True
+    USER_LOGIN_URL = '/login'
 
     USER_ENABLE_CONFIRM_EMAIL = False
 
     USER_LOGIN_TEMPLATE = 'authentication/login.html'
-    USER_REGISTER_TEMPLATE = 'register/register.html'
+    USER_REGISTER_TEMPLATE = 'authentication/register.html'
 
 
 class ProductionConfig(Config):

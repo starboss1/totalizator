@@ -1,3 +1,4 @@
+
 $(function () {
     const $formEvents = $("#form-events");
     const $formPlaceBet = $("#form-placebet");
@@ -9,12 +10,9 @@ $(function () {
             "info": getFormData($formPlaceBet),
             "events": $formEvents.serializeArray()
         };
-        console.log($formEvents);
-        placeBet(json)
-    });
+        console.log(json);
 
-    $(".js-parlay-random").click(function () {
-        randomChoice();
+        placeBet(json)
     });
 
     $(".js-parlay-clear").click(function () {
@@ -49,14 +47,6 @@ $(function () {
         });
 
         return indexed_array;
-    }
-
-    function randomChoice() {
-        $formEvents.find('.event-outcomes').each(function () {
-            let $inputs = $(this).find("input");
-            console.log($inputs);
-            $($inputs[Math.floor(Math.random() * $inputs.length)]).prop("checked", true)
-        });
     }
 
     function clearAll() {

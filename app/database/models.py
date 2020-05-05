@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
 
     balance = db.Column(db.Float, nullable=False, default=0)
     roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
-    bet = db.relationship('Bet', back_populates='user')
+    bets = db.relationship('Bet', back_populates='user')
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -59,7 +59,6 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(1000), nullable=False)
-    datetime = db.Column(db.DateTime, nullable=False)
     coefficient = db.Column(db.Float, nullable=False)
 
     match_fk = db.Column(db.Integer, db.ForeignKey('matches.id', ondelete='CASCADE', onupdate='CASCADE'), nullable=False)

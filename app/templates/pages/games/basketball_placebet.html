@@ -2,7 +2,7 @@
 
 {% block styles %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/basketball-placebet.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/game-placebet.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -20,7 +20,7 @@
                                 <div class="match-countdown">
                                     <div class="match-countdown-text">Remaining time</div>
                                     <div class="match-countdown-wrapper"
-                                         data-countdown="{{ draw.datetime_match }}">
+                                         data-countdown="{{ match.datetime_match }}">
                                         <div class="js-days"></div>
                                         <div class="divider">:</div>
                                         <div class="js-hours"></div>
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="bet-info">
-                                <form class="bet-wrapper" id="form-placebet" action="/play/{{ draw.id }}/placebet">
+                                <form class="bet-wrapper" id="form-placebet" action="/play/{{ match.id }}/placebet">
                                     <input type="number" min="10" required class="input-placebet" placeholder="Amount"
                                            name="amount">
                                     <button type="submit" class="btn-custom green">Place a bet!</button>
@@ -60,7 +60,7 @@
                                     Name
                                 </th>
                                 <th>
-                                    Date
+                                    Coefficient
                                 </th>
                                 <th class="text-right">
                                     Outcome
@@ -75,8 +75,8 @@
                                     <td class="event-name text-center">
                                         {{ event.name }}
                                     </td>
-                                    <td class="event-datetime text-center">
-                                        {{ event.datetime }}
+                                    <td class="event-name text-center">
+                                        {{ event.coefficient }}
                                     </td>
                                     <td class="event-outcomes text-right">
                                         <div class="text-center" style="display: inline-block">
@@ -94,7 +94,6 @@
                         </table>
                     </form>
                     <div class="match-actions-wrapper">
-                        <button class="btn-custom js-parlay-random">Random select</button>
                         <button class="btn-custom js-parlay-clear">Clear selection</button>
                     </div>
                 </div>

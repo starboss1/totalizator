@@ -2,13 +2,13 @@
 
 {% block content %}
     <div class="container" style="padding-top: 50px">
-        <h2 class="text-center" style="margin-bottom: 20px">My parlays</h2>
+        <h2 class="text-center" style="margin-bottom: 20px">My bets</h2>
 
         <table class="table table-dark table-striped">
             <thead class="thead-dark">
             <tr>
                 <th>
-                    Parlay ID
+                    Bet ID
                 </th>
                 <th>
                     Amount
@@ -18,14 +18,14 @@
                 </th>
             </tr>
             </thead>
-            {% for parlay in parlays %}
+            {% for bet in bets %}
                 <tr>
-                    <td>{{ parlay.id }}</td>
+                    <td>{{ bet.id }}</td>
                     <td>
-                        {{ parlay.amount }}
+                        {{ bet.amount }}
                     </td>
                     <td>
-                        {{ parlay.win_sum }}
+                        {{ bet.win_sum }}
                     </td>
                 </tr>
             {% endfor %}

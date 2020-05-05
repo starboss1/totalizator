@@ -15,7 +15,7 @@ def basket_play():
 
 @game_blueprint.route('/play/<match_id>')
 @login_required
-def draw_play(match_id):
+def match_play(match_id):
     match = db_queries.get_match_by_id(match_id)
     possible_outcomes = db_queries.get_all_possible_outcomes()
     return render_template('pages/games/basketball_placebet.html', match=match, possible_outcomes=possible_outcomes)

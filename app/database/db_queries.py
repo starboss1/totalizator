@@ -48,16 +48,11 @@ class DatabaseQueries:
         datetime_now = datetime.now()
         return Match.query.filter(Match.datetime_match > datetime_now).order_by(Match.datetime_match.desc())
 
-    def create_match(self, match_name):
-        match = Match(name=match_name)
+    def create_match(self, match_name, datetime_match):
+        match = Match(name=match_name, datetime_match=datetime_match)
         self.db.session.add(match)
         self.db.session.commit()
         return match
-
-    def add_random_events_to_match(self, match, date):
-        while len(match.events) < match.events_amount:
-            self.create_event("Team1 - Team2", date, match)
-            self.db.session.commit()
 
     def set_random_match_outcomes(self, match: Match):
         for event in match.events:
@@ -68,13 +63,9 @@ class DatabaseQueries:
     def get_all_matches(self):
         return Match.query.order_by(Match.id.desc()).all()
 
-    def create_event(self, event_name, event_datetime, match, outcome=None):
-        event = Event(name=event_name, datetime=event_datetime, match=match, outcome=outcome)
+    def create_event(self, event_name, coefficient, match, outcome=None):
+        event = Event(name=event_name, coefficient=coefficient, match=match, outcome=outcome)
         self.db.session.add(event)
-
-        if match.datetime_match is None or (match.datetime_match - event_datetime).total_seconds() > 0:
-            match.datetime_match = event_datetime
-
         self.db.session.commit()
         return event
 
@@ -88,8 +79,6 @@ class DatabaseQueries:
         return Outcome.query.order_by(Outcome.id).all()
 
     def place_bet(self, amount: int, events_data, user: User):
-        if len(events_data) < Match.events_amount:
-            raise PlaceBetException(message="Select outcome for every event")
 
         if user.balance < float(amount):
             raise PlaceBetException(message="Not enough funds")
@@ -100,10 +89,9 @@ class DatabaseQueries:
 
         for parlay_info in events_data:
             self.db.session.add(
-                BetDetails(parlay_fk=bet.id, outcome_fk=parlay_info['value'], event_fk=parlay_info['name']))
+                BetDetails(bet_fk=bet.id, outcome_fk=parlay_info['value'], event_fk=parlay_info['name']))
 
         user.balance -= float(amount)
-        print(user)
         self.db.session.commit()
 
     def update_event_outcome(self, event_id, outcome_id):

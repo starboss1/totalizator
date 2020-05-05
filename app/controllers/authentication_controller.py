@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_user import current_user, login_required
 from flask_login import login_user, logout_user
 from app.forms.UserLoginForm import UserLoginForm, UserRegistrationForm, UserBalanceReplenish
-# from app import user_manager
 
 from app.database.db_queries import db_queries
 
@@ -48,11 +47,11 @@ def balance():
     return render_template('user/balance.html', form=form)
 
 
-@authentication_blueprint.route('/user/parlays')
+@authentication_blueprint.route('/user/bets')
 @login_required
-def parlays():
-    parlays = current_user.parlays
-    return render_template('user/parlays.html', parlays=parlays)
+def bets():
+    bets = current_user.bets
+    return render_template('user/bets.html', bets=bets)
 
 
 @authentication_blueprint.route('/logout')
