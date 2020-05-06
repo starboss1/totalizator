@@ -53,12 +53,6 @@ class DatabaseQueries:
         self.db.session.add(match)
         self.db.session.commit()
         return match
-
-    def set_random_match_outcomes(self, match: Match):
-        for event in match.events:
-            self.update_event_outcome(event.id,
-                                      self.db.session.query(Outcome)[random.randrange(0, Outcome.query.count())])
-            self.db.session.commit()
     
     def get_all_matches(self):
         return Match.query.order_by(Match.id.desc()).all()
@@ -72,11 +66,15 @@ class DatabaseQueries:
     def get_match_by_id(self, match_id):
         return Match.query.get(match_id)
 
-    def get_event_by_id(self, event_id):
+    def get_event_by_id(self, event_id) -> Event:
         return Event.query.get(event_id)
 
     def get_all_possible_outcomes(self):
         return Outcome.query.order_by(Outcome.id).all()
+
+    def get_match_by_bet(self, bet: Bet) -> Match:
+        res: BetDetails = BetDetails.query.filter(BetDetails.bet_fk == bet.id).scalar()
+        return res.event.match
 
     def place_bet(self, amount: int, events_data, user: User):
 
@@ -95,10 +93,10 @@ class DatabaseQueries:
         self.db.session.commit()
 
     def update_event_outcome(self, event_id, outcome_id):
-        self.get_event_by_id(event_id=event_id).outcome_fk = outcome_id
-        match = self.get_event_by_id(event_id).match
-        if self._check_match_waiting_for_distribution(match):
-            self._distribute_pool(match)
+        event = self.get_event_by_id(event_id)
+        event.outcome_fk = outcome_id
+
+        # if self._check_match_waiting_for_distribution(match):
 
         self.db.session.commit()
 
@@ -110,12 +108,26 @@ class DatabaseQueries:
                 return False
         return True
 
-    def _distribute_pool(self, match):
-        if match.is_finished:
-            raise DrawFundsDistributionException("Match is already finished!!!")
-
+    def distribute_pool(self, match):
+        bets_of_match = match.all_bets
         match.is_finished = True
+        for bet in bets_of_match:
+            win_sum = bet.amount*self._get_coefficient_all_event_of_bet(bet)
+            bet.win_sum = win_sum
+            bet.user.balance += win_sum
         self.db.session.commit()
+
+    def _get_coefficient_all_event_of_bet(self, bet:Bet):
+        total_coeff = 0
+
+        for bet_details in bet.bet_details:
+            event = self.get_event_by_id(bet_details.event_fk)
+            if int(event.outcome_fk) == bet_details.outcome_fk:
+                total_coeff += event.coefficient
+            else:
+                total_coeff = 0
+                break
+        return total_coeff
 
 
 db_queries = DatabaseQueries()

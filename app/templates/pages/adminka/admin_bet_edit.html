@@ -68,23 +68,13 @@
                         {% endfor %}
                     </table>
                 {% if match.match_status == "waiting_results" %}
-                    <a class="btn btn-primary" id="save-outcomes-btn" href="#" role="button">Link</a>
+                    <a class="btn btn-primary" id="save-outcomes-btn" href="#" role="button">Save outcomes</a>
                 {% endif %}
                 </div>
 
-                <div class="col-md-4">
-                        <h3>Add new event</h3>
-                        <form class="form" method="post">
-                            {{ form.hidden_tag() }}
-                            {{ render_field(form.name) }}
-                            {{ render_field(form.coefficient) }}
-                            {{ render_submit_field(form.submit) }}
-                        </form>
-                        {#                            <form class="form" method="post" action="{{ draw.id }}/publish">#}
-                        {#                                <input type="submit" class="btn btn-primary btn-form" value="Publish the draw!">#}
-                        {#                            </form>#}
-
-                </div>
+            {% if match.match_status == 'pending' %}
+            {% include "pages/adminka/components/add_event.html" %}
+            {% endif %}
             </div>
         </div>
     </section>

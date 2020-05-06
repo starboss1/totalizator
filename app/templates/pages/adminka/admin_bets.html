@@ -50,15 +50,7 @@
                         {% endfor %}
                     </table>
                 </div>
-                <div class="col-md-4">
-                    <h3>Create match</h3>
-                    <form class="form" method="post">
-                        {{ form.hidden_tag() }}
-                        {{ render_field(form.name) }}
-                        {{ render_field(form.date) }}
-                        {{ render_submit_field(form.submit) }}
-                    </form>
-                </div>
+            {% include "pages/adminka/components/add_match.html" %}
             </div>
         </div>
     </section>

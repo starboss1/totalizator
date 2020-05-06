@@ -22,7 +22,7 @@ class Config(object):
 
     USER_ENABLE_EMAIL = False
     USER_ENABLE_USERNAME = True
-    USER_LOGIN_URL = '/login'
+
 
     USER_ENABLE_CONFIRM_EMAIL = False
 

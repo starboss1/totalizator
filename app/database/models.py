@@ -119,6 +119,13 @@ class Bet(db.Model):
     user = db.relationship('User', back_populates="bets")
     bet_details = db.relationship('BetDetails')
 
+    @hybrid_property
+    def all_events(self):
+        events = set()
+        for bd in self.bet_details:
+            events.add(bd.event)
+        return events
+
 
 class BetDetails(db.Model):
     __tablename__ = 'bet_details'

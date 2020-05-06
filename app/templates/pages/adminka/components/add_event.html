@@ -1,0 +1,9 @@
+<div class="col-md-4">
+    <h3>Add new event</h3>
+    <form class="form" method="post">
+        {{ form.hidden_tag() }}
+        {{ render_field(form.name) }}
+        {{ render_field(form.coefficient) }}
+        {{ render_submit_field(form.submit) }}
+    </form>
+</div>
