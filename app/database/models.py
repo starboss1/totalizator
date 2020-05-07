@@ -1,11 +1,10 @@
 from app.database import db
 from datetime import datetime
 from functools import reduce
-
+from passlib.hash import sha256_crypt
 
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_user import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model, UserMixin):
@@ -21,10 +20,10 @@ class User(db.Model, UserMixin):
     bets = db.relationship('Bet', back_populates='user')
 
     def set_password(self, password):
-        self.password = generate_password_hash(password)
+        self.password = sha256_crypt.hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)
+        return sha256_crypt .verify(password, self.password)
 
     def __repr__(self):
         return f'<User {self.username}>'

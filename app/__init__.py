@@ -21,13 +21,6 @@ app.register_blueprint(index_blueprint)
 app.register_blueprint(authentication_blueprint)
 app.register_blueprint(game_blueprint)
 app.register_blueprint(admin_blueprint)
-
 from app.database import models
-#
-# def start_app():
-#     database.init_app(app)
-#     migrate.init_app(app, database)
-#
-#
-#     return app
+
 

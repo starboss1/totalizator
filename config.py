@@ -23,10 +23,9 @@ class Config(object):
     USER_ENABLE_EMAIL = False
     USER_ENABLE_USERNAME = True
 
+    USER_PASSLIB_CRYPTCONTEXT_SCHEMES = ["sha256_crypt"]
+
     USER_ENABLE_CONFIRM_EMAIL = False
-    USER_USER_SESSION_EXPIRATION = 3600
-    USER_PASSLIB_CRYPTCONTEXT_SCHEMES = ['sha256_crypt']
-    USER_LOGIN_URL = '/login'
 
     USER_LOGIN_TEMPLATE = 'authentication/login.html'
     USER_REGISTER_TEMPLATE = 'authentication/register.html'
