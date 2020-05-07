@@ -8,18 +8,22 @@
 {% block content %}
     <section class="play-main">
         <div class="container">
-            <h2 class="page-title">Basketball</h2>
+            <h2 class="page-title">Matches</h2>
             <div class="row matches-row">
                 {% for match in matches %}
-                    <div class="col-sm-6 match-column">
+                    <div class="col-sm-12 col-md-6 match-column">
                         <a href="/play/{{ match.id }}" class="match-wrapper">
                             <div class="match-name">
+
                                 <div class="match-name-main">{{ match.name }}</div>
-                                <div class="match-name-subtext">(Match #{{ match.id }})</div>
+                            </div>
+                            <div class="match-date">
+                                <div>Start at</div>
+                                <div>{{ match.datetime_match }}</div>
                             </div>
                             <div class="match-countdown">
                                 <div class="match-countdown-text">Remaining time</div>
-                                <div class="Match-countdown-wrapper" data-countdown="{{ match.datetime_match }}">
+                                <div class="match-countdown-wrapper" data-countdown="{{ match.datetime_match }}">
                                     <div class="js-days"></div>
                                     <div class="divider">:</div>
                                     <div class="js-hours"></div>

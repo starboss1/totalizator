@@ -1,27 +1,33 @@
 <!-- extend base layout -->
 {% extends 'common/layout.html' %}
-
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
 {% block content %}
-<h1>Sign In</h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-        Enter your Login:<br>
-        {{ form.username.label }}<br>
-        {{ form.username(size=32) }}
-        {% for error in form.username.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}
-        {{ form.password(size=32) }}
-        {% for error in form.password.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit() }}</p>
+    <hr>
+    <div class="container" style="padding-top: 50px">
 
-</form>
+
+        <form action="" method="post" class="form-signin" novalidate>
+            {{ form.hidden_tag() }}
+        <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+            <div id="loginUsername">
+                {{ form.username.label }}<br>
+                {{ form.username(size=32, class="form-control") }}
+                {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div id="loginPassword">
+                {{ form.password.label }}
+                {{ form.password(size=32, class="form-control") }}
+                {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div>{{ form.remember_me() }} {{ form.remember_me.label }}</div>
+            <div>{{ form.submit(class_="btn btn-lg btn-primary btn-block login-button") }}</div>
+        </form>
+    </div>
 {% endblock %}

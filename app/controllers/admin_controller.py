@@ -39,14 +39,6 @@ def match_edit(match_id):
                            possible_outcomes=possible_outcomes)
 
 
-# @admin_blueprint.route('/admin/event/<event_id>/update_outcome', methods=['POST'])
-# @roles_required('admin')
-# def update_outcome(event_id):
-#     print(request.get_json())
-#     print(event_id)
-#     # outcome_id = request.get_json()['outcome_id']
-#     # db_queries.update_event_outcome(outcome_id=outcome_id, event_id=event_id)
-#     return jsonify({"message": f"Outcome successfully updated for event #{event_id}"})
 @admin_blueprint.route('/admin/matches/<match_id>/update_outcome', methods=['POST'])
 @roles_required('admin')
 def update_outcome(match_id):
@@ -59,8 +51,3 @@ def update_outcome(match_id):
     db_queries.distribute_pool(match)
     return jsonify({"message": f"Outcome successfully updated for match #{match_id}"})
 
-@admin_blueprint.route('/admin/matches/<match_id>/distribute', methods=['GET'])
-@roles_required('admin')
-def test_distribute(match_id):
-    db_queries._distribute_pool(db_queries.get_match_by_id(match_id))
-    return "test_distribute"

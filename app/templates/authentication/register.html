@@ -1,37 +1,45 @@
 {% extends 'common/layout.html' %}
 
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h3>Register</h3>
-    <form action="" method="post">
+        <hr>
+    <div class="container" style="padding-top: 50px">
+    <form action="" method="post" class="form-signin">
         {{ form.hidden_tag() }}
-        <p>
+        <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+        <div>
             {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
+            {{ form.username(size=32, class="form-control") }}<br>
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
+        </div>
+        <div>
             {{ form.email.label }}<br>
-            {{ form.email(size=64) }}<br>
+            {{ form.email(size=64, class="form-control") }}<br>
             {% for error in form.email.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
+        </div>
+        <div>
             {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
+            {{ form.password(size=32, class="form-control") }}<br>
             {% for error in form.password.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
+        </div>
+        <div>
             {{ form.password2.label }}<br>
-            {{ form.password2(size=32) }}<br>
+            {{ form.password2(size=32, class="form-control") }}<br>
             {% for error in form.password2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
+        </div>
+        <p>{{ form.submit(class_="btn btn-lg btn-primary btn-block login-button") }}</p>
     </form>
+        </div>
 {% endblock %}

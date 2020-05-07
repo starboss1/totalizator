@@ -10,7 +10,7 @@ game_blueprint = Blueprint('game', __name__)
 @game_blueprint.route('/play')
 def basket_play():
     matches = db_queries.get_pending_matches()
-    return render_template('pages/games/basketball.html', matches=matches)
+    return render_template('pages/games/games.html', matches=matches)
 
 
 @game_blueprint.route('/play/<match_id>')
@@ -18,7 +18,7 @@ def basket_play():
 def match_play(match_id):
     match = db_queries.get_match_by_id(match_id)
     possible_outcomes = db_queries.get_all_possible_outcomes()
-    return render_template('pages/games/basketball_placebet.html', match=match, possible_outcomes=possible_outcomes)
+    return render_template('pages/games/game_placebet.html', match=match, possible_outcomes=possible_outcomes)
 
 
 @game_blueprint.route('/play/placebet', methods=['POST'])

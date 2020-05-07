@@ -19,6 +19,8 @@ def login():
             flash('Invalid username or password')
             return redirect('/login')
         login_user(user, remember=form.remember_me.data)
+        if len(user.roles) != 0 and user.roles[0].name == "admin":
+            return redirect('/admin')
         return redirect('/')
 
     return render_template('authentication/login.html', title='Sign In', form=form)

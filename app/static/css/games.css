@@ -20,14 +20,14 @@ section.play-main .match-wrapper {
   justify-content: space-between;
   flex-direction: column;
   text-align: center;
-  color: black;
+  color: #e2e3e5;
   text-decoration: none;
 }
 section.play-main .match-wrapper:before {
   position: absolute;
   content: "";
   background: url("/static/images/bg2.jpg") no-repeat center;
-  background-size: 100%;
+  background-size: 105%;
   top: 0;
   bottom: 0;
   left: 0;
@@ -44,13 +44,12 @@ section.play-main .match-wrapper:hover:before {
   opacity: 0.6;
 }
 section.play-main .match-wrapper .match-name-main {
-  font-size: 26px;
+  font-size: 25px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
 }
-section.play-main .match-wrapper .match-name-sub {
-  opacity: 0.8;
-  font-size: 16px;
+section.play-main .match-wrapper .match-date {
+  font-size: 22px;
 }
 section.play-main .match-wrapper .match-countdown {
   margin-top: 30px;

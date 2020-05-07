@@ -69,6 +69,7 @@ nav .navbar-toggler-icon {
 
 .form .btn-form {
   min-width: 150px;
+  align-self: center;
 }
 .form .form-group .control-label {
   margin-bottom: 0.25rem;
@@ -107,15 +108,19 @@ body {
   font-size: 18px;
   font-weight: 400;
   line-height: 1.4;
-  color: black;
-  background-color: #fff;
+  color: white;
+  background-color: #212121;
   position: relative;
   min-height: 100%;
   margin: 0;
 }
 
+.table{
+  color: white;
+}
+
 section.first-section {
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
 .btn-custom {
