@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn totalizator:app
+web: flask db upgrade; gunicorn app:app
