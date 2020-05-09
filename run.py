@@ -1,5 +1,5 @@
 from app import create_app
 
-
-appl = create_app()
-appl.run(host=appl.config['HOST'], port=appl.config['PORT'])
+if __name__ == '__main__':
+    app = create_app()
+    app.run(host=app.config['HOST'], port=app.config['PORT'])
