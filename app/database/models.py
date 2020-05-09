@@ -57,7 +57,7 @@ class Event(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(1000), nullable=False)
+    name = db.Column(db.String(150), nullable=False)
     coefficient = db.Column(db.Float, nullable=False)
 
     match_fk = db.Column(db.Integer, db.ForeignKey('matches.id', ondelete='CASCADE', onupdate='CASCADE'), nullable=False)
