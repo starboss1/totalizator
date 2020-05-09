@@ -40,24 +40,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_fk'], ['users.id'], onupdate='CASCADE', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('events',
-    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('name', sa.String(length=1000), nullable=False),
-    sa.Column('datetime', sa.DateTime(), nullable=False),
-    sa.Column('coefficient', sa.Float(), nullable=False),
-    sa.Column('match_fk', sa.Integer(), nullable=False),
-    sa.Column('outcome_fk', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['match_fk'], ['matches.id'], onupdate='CASCADE', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['outcome_fk'], ['possible_outcomes.id'], onupdate='CASCADE', ondelete='CASCADE'),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('user_roles',
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('role_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], onupdate='CASCADE', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], onupdate='CASCADE', ondelete='CASCADE'),
-    sa.PrimaryKeyConstraint('user_id', 'role_id')
-    )
     op.create_table('bet_details',
     sa.Column('bet_fk', sa.Integer(), nullable=False),
     sa.Column('event_fk', sa.Integer(), nullable=False),
