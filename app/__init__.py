@@ -22,7 +22,6 @@ def create_app():
     user_manager = UserManager(app, db, UserClass=User)
     from app.database.db_queries import db_queries
     db_queries.init_db(db, user_manager)
-    db_queries.create_user('admin','admin','admin@gmail.com',0,True)
     # register blueprints
     app.register_blueprint(index_blueprint)
     app.register_blueprint(authentication_blueprint)
