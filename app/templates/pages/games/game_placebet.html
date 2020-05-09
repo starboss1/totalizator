@@ -8,70 +8,66 @@
 {% block content %}
     <section class="placebet">
         <div class="container">
-                    <div class="match-info-container match-info-wrapper">
-                            <div class="match-info">
-                                <div class="match-name">
-                                <div class="match-name-main">{{ match.name }}</div>
-                            </div>
-                            <div class="match-date">
-                                <div>Start at {{ match.datetime_match }}</div>
-                            </div>
-                                {% include "/pages/games/components/countdown.html" %}
-                            </div>
-
-
+            <div class="match-info-container match-info-wrapper">
+                <div class="match-info">
+                    <div class="match-name">
+                        <div class="match-name-main">{{ match.name }}</div>
                     </div>
-            <div>
-                    <form id="form-events">
-                        <table class="table table-events">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th class="text-left">
-                                    ID
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Coefficient
-                                </th>
-                                <th class="text-right">
-                                    Outcome
-                                </th>
-                            </tr>
-                            </thead>
-                            {% for event in match.events %}
-                                <tr class="event-wrapper">
-                                    <td class="event-index text-left">
-                                        {{ loop.index }}
-                                    </td>
-                                    <td class="event-name text-center">
-                                        {{ event.name }}
-                                    </td>
-                                    <td class="event-name text-center">
-                                        {{ event.coefficient }}
-                                    </td>
-                                    <td class="event-outcomes text-right">
-                                        <div class="text-center" style="display: inline-block">
-                                            {% for outcome in possible_outcomes %}
-                                                <label class="outcome-label">
-                                                    <input type="radio" name="{{ event.id }}"
-                                                           value="{{ outcome.id }}">
-                                                    <span class="outcome-stylized">{{ outcome.name }}</span>
-                                                </label>
-                                            {% endfor %}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </form>
-                    <div class="match-actions-wrapper">
-                        <button class="btn-custom js-parlay-clear">Clear selection</button>
+                    <div class="match-date">
+                        <div>Start at {{ match.datetime_match }}</div>
                     </div>
-
+                    {% include "/pages/games/components/countdown.html" %}
+                </div>
             </div>
-        <div class="row col-md-12 col-lg-12">
+            <div>
+                <form id="form-events">
+                    <table class="table table-events">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th class="text-left">
+                                ID
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Coefficient
+                            </th>
+                            <th class="text-right">
+                                Outcome
+                            </th>
+                        </tr>
+                        </thead>
+                        {% for event in match.events %}
+                            <tr class="event-wrapper">
+                                <td class="event-index text-left">
+                                    {{ loop.index }}
+                                </td>
+                                <td class="event-name text-center">
+                                    {{ event.name }}
+                                </td>
+                                <td class="event-name text-center">
+                                    {{ event.coefficient }}
+                                </td>
+                                <td class="event-outcomes text-right">
+                                    <div class="text-center" style="display: inline-block">
+                                        {% for outcome in possible_outcomes %}
+                                            <label class="outcome-label">
+                                                <input type="radio" name="{{ event.id }}"
+                                                       value="{{ outcome.id }}">
+                                                <span class="outcome-stylized">{{ outcome.name }}</span>
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </form>
+                <div class="match-actions-wrapper">
+                    <button class="btn-custom js-parlay-clear">Clear selection</button>
+                </div>
+            </div>
             <div class="bet-info">
                 <form class="bet-wrapper" id="form-placebet" action="/play/{{ match.id }}/placebet">
                     <input type="number" min="10" required class="input-placebet" placeholder="Amount"
@@ -79,7 +75,6 @@
                     <button type="submit" class="btn-custom green">Place a bet!</button>
                 </form>
             </div>
-        </div>
         </div>
     </section>
 {% endblock %}

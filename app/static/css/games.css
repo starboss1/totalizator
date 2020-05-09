@@ -57,15 +57,6 @@
   font-size: 19px;
   font-weight: 300;
 }
-.match-wrapper .match-countdown-text {
+.match-countdown-text {
   opacity: 0.8;
-}
-.match-wrapper .match-pool {
-  margin-top: 30px;
-}
-.match-wrapper .match-pool-text {
-  opacity: 0.8;
-}
-.match-wrapper .match-pool-amount {
-  font-size: 24px;
 }

@@ -37,6 +37,12 @@ def register():
         return redirect('/login')
     return render_template('authentication/register.html', title='Register', form=form)
 
+@authentication_blueprint.route('/user/bets')
+@login_required
+def bets():
+    bets = current_user.bets
+    return render_template('user/bets.html', bets=bets)
+
 
 @authentication_blueprint.route('/user/balance', methods=['GET', 'POST'])
 @login_required
@@ -47,13 +53,6 @@ def balance():
         db_queries.update_user_balance(current_user, form.amount.data)
         flash(f'Your balance replenished (+{form.amount.data})', 'success')
     return render_template('user/balance.html', form=form)
-
-
-@authentication_blueprint.route('/user/bets')
-@login_required
-def bets():
-    bets = current_user.bets
-    return render_template('user/bets.html', bets=bets)
 
 
 @authentication_blueprint.route('/logout')

@@ -2,7 +2,6 @@ from flask_user import UserManager
 from flask_sqlalchemy import SQLAlchemy
 
 from app.database.models import *
-from app.exceptions.database_exceptions import *
 from app.exceptions.game_exceptions import PlaceBetException
 
 
@@ -14,12 +13,6 @@ class DatabaseQueries:
     def init_db(self, db_sqlalchemy: SQLAlchemy, user_manager: UserManager):
         self.db = db_sqlalchemy
         self.user_manager = user_manager
-
-    def get_user_by_id(self, user_id):
-        return User.query.get(user_id)
-
-    def get_user_by_username(self, username):
-        return User.query.filter_by(username=username).first()
 
     def create_user(self, username, password, email, balance=0,  is_admin=False):
         user = User(username=username, balance=balance, email=email)
@@ -44,10 +37,6 @@ class DatabaseQueries:
         user.balance = user.balance + diff
         self.db.session.commit()
 
-    def get_pending_matches(self):
-        datetime_now = datetime.now()
-        return Match.query.filter(Match.datetime_match > datetime_now).order_by(Match.datetime_match)
-
     def create_match(self, match_name, datetime_match):
 
         query = db.session.query(Match).filter(Match.datetime_match == datetime_match and Match.name == match_name)
@@ -70,19 +59,6 @@ class DatabaseQueries:
         self.db.session.add(event)
         self.db.session.commit()
         return event
-
-    def get_match_by_id(self, match_id):
-        return Match.query.get(match_id)
-
-    def get_event_by_id(self, event_id) -> Event:
-        return Event.query.get(event_id)
-
-    def get_all_possible_outcomes(self):
-        return Outcome.query.order_by(Outcome.id).all()
-
-    def get_match_by_bet(self, bet: Bet) -> Match:
-        res: BetDetails = BetDetails.query.filter(BetDetails.bet_fk == bet.id).scalar()
-        return res.event.match
 
     def place_bet(self, amount: int, events_data, user: User):
 
@@ -136,5 +112,27 @@ class DatabaseQueries:
                 break
         return total_coeff
 
+    def get_match_by_id(self, match_id):
+        return Match.query.get(match_id)
+
+    def get_event_by_id(self, event_id) -> Event:
+        return Event.query.get(event_id)
+
+    def get_all_possible_outcomes(self):
+        return Outcome.query.order_by(Outcome.id).all()
+
+    def get_match_by_bet(self, bet: Bet) -> Match:
+        res: BetDetails = BetDetails.query.filter(BetDetails.bet_fk == bet.id).scalar()
+        return res.event.match
+
+    def get_user_by_id(self, user_id):
+        return User.query.get(user_id)
+
+    def get_user_by_username(self, username):
+        return User.query.filter_by(username=username).first()
+
+    def get_pending_matches(self):
+        datetime_now = datetime.now()
+        return Match.query.filter(Match.datetime_match > datetime_now).order_by(Match.datetime_match)
 
 db_queries = DatabaseQueries()

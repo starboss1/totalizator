@@ -5,9 +5,11 @@ from flask_user import UserManager
 from app.database.models import User
 from app.controllers import index_blueprint, authentication_blueprint, game_blueprint, admin_blueprint
 
+# init flask app
 app = Flask(__name__)
 app.config.from_object(config_object)
 
+# init database and migrations
 from app.database import db
 db.init_app(app)
 db.app = app
@@ -17,6 +19,7 @@ user_manager = UserManager(app, db, UserClass=User)
 from app.database.db_queries import db_queries
 db_queries.init_db(db, user_manager)
 
+# register blueprints
 app.register_blueprint(index_blueprint)
 app.register_blueprint(authentication_blueprint)
 app.register_blueprint(game_blueprint)
