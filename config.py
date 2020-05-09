@@ -9,6 +9,7 @@ class Config(object):
     CSRF_ENABLED = True
     PORT = 8000
     HOST = "localhost"
+    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
     DB_NAME = os.getenv('DB_NAME')

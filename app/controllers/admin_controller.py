@@ -45,8 +45,6 @@ def match_edit(match_id):
 @admin_blueprint.route('/admin/matches/<match_id>/update_outcome', methods=['POST'])
 @roles_required('admin')
 def update_outcome(match_id):
-    print('request = '+str(request.get_json()))
-    print('match_id = '+str(match_id))
     outcomes = request.get_json()
     for outcome in outcomes:
         db_queries.update_event_outcome(outcome['event_id'], outcome['outcome_id'])
