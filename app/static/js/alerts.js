@@ -5,10 +5,10 @@ function showMessage(message, category = "info") {
                 </button>
                 ${message}
             </div>`);
-
     $(".flashes-container").append($alert);
 
     setTimeout(function () {
         $alert.fadeOut();
+        $alert.remove();
     }, 10000);
 }
