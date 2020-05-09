@@ -10,7 +10,6 @@ $(function () {
             "info": getFormData($formPlaceBet),
             "events": $formEvents.serializeArray()
         };
-        console.log(json);
 
         placeBet(json)
     });
@@ -27,13 +26,13 @@ $(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                showAlert(data['message'], "success");
+                showMessage(data['message'], "success");
                 $formEvents[0].reset();
                 $formPlaceBet[0].reset();
                 // location.reload()
             },
             error: function (errMsg) {
-                showAlert(errMsg['responseJSON']['message'], "danger");
+                showMessage(errMsg['responseJSON']['message'], "danger");
             }
         })
     }

@@ -1,9 +1,9 @@
 from flask_user import UserManager
 from flask_sqlalchemy import SQLAlchemy
+
 from app.database.models import *
 from app.exceptions.database_exceptions import *
 from app.exceptions.game_exceptions import PlaceBetException
-import random
 
 
 class DatabaseQueries:
@@ -46,14 +46,22 @@ class DatabaseQueries:
 
     def get_pending_matches(self):
         datetime_now = datetime.now()
-        return Match.query.filter(Match.datetime_match > datetime_now).order_by(Match.datetime_match.desc())
+        return Match.query.filter(Match.datetime_match > datetime_now).order_by(Match.datetime_match)
 
     def create_match(self, match_name, datetime_match):
-        match = Match(name=match_name, datetime_match=datetime_match)
-        self.db.session.add(match)
-        self.db.session.commit()
-        return match
-    
+
+        query = db.session.query(Match).filter(Match.datetime_match == datetime_match and Match.name == match_name)
+        count_q = query.statement.with_only_columns([query.count()]).order_by(None)
+        count = query.session.execute(count_q).scalar()
+
+        if count is None or count == 0:
+            match = Match(name=match_name, datetime_match=datetime_match)
+            self.db.session.add(match)
+            self.db.session.commit()
+            return match
+        else:
+            raise PlaceBetException(message="This match is already exists")
+
     def get_all_matches(self):
         return Match.query.order_by(Match.id.desc()).all()
 
@@ -85,9 +93,9 @@ class DatabaseQueries:
         self.db.session.add(bet)
         self.db.session.commit()
 
-        for parlay_info in events_data:
+        for bet_info in events_data:
             self.db.session.add(
-                BetDetails(bet_fk=bet.id, outcome_fk=parlay_info['value'], event_fk=parlay_info['name']))
+                BetDetails(bet_fk=bet.id, outcome_fk=bet_info['value'], event_fk=bet_info['name']))
 
         user.balance -= float(amount)
         self.db.session.commit()
@@ -95,12 +103,9 @@ class DatabaseQueries:
     def update_event_outcome(self, event_id, outcome_id):
         event = self.get_event_by_id(event_id)
         event.outcome_fk = outcome_id
-
-        # if self._check_match_waiting_for_distribution(match):
-
         self.db.session.commit()
 
-    def _check_match_waiting_for_distribution(self, match):
+    def _check_match_status(self, match):
         if match.match_status != "waiting_results":
             return False
         for event in match.events:
@@ -108,14 +113,16 @@ class DatabaseQueries:
                 return False
         return True
 
-    def distribute_pool(self, match):
-        bets_of_match = match.all_bets
-        match.is_finished = True
-        for bet in bets_of_match:
-            win_sum = bet.amount*self._get_coefficient_all_event_of_bet(bet)
-            bet.win_sum = win_sum
-            bet.user.balance += win_sum
-        self.db.session.commit()
+    def calculate_results(self, match):
+
+        if self._check_match_status(match):
+            bets_of_match = match.all_bets
+            for bet in bets_of_match:
+                win_sum = bet.amount*self._get_coefficient_all_event_of_bet(bet)
+                bet.win_sum = win_sum
+                bet.user.balance += win_sum
+            match.is_finished = True
+            self.db.session.commit()
 
     def _get_coefficient_all_event_of_bet(self, bet:Bet):
         total_coeff = 0

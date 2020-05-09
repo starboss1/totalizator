@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, flash, request, jsonify, redirect
 
 from app.forms.AdminForm import *
 from app.database.db_queries import db_queries
+from app.exceptions.game_exceptions import PlaceBetException
 
 admin_blueprint = Blueprint('admin', __name__)
 
@@ -18,9 +19,11 @@ def main_page():
 def matches():
     form = AdminCreateMatchForm()
     if form.validate_on_submit():
-        match = db_queries.create_match(match_name=form.name.data, datetime_match=form.date.data)
-        flash(f"Match #{match.id} created successfully", "success")
-
+        try:
+            match = db_queries.create_match(match_name=form.name.data, datetime_match=form.date.data)
+            flash(f"Match #{match.id} created successfully", "success")
+        except PlaceBetException:
+            flash(f"This match is already exists", "error")
     matches_list = db_queries.get_all_matches()
     return render_template('pages/adminka/admin_bets.html', form=form, matches=matches_list)
 
@@ -48,6 +51,6 @@ def update_outcome(match_id):
     for outcome in outcomes:
         db_queries.update_event_outcome(outcome['event_id'], outcome['outcome_id'])
     match = db_queries.get_event_by_id(outcomes[0]['event_id']).match
-    db_queries.distribute_pool(match)
+    db_queries.calculate_results(match)
     return jsonify({"message": f"Outcome successfully updated for match #{match_id}"})
 

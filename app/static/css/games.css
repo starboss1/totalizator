@@ -1,15 +1,11 @@
-section.play-main .page-title {
-  text-align: center;
-  font-weight: bold;
-  margin-top: 50px;
-}
-section.play-main .match-column {
+
+.match-column {
   padding: 10px;
 }
-section.play-main .matches-row {
+.matches-row {
   margin-top: 30px;
 }
-section.play-main .match-wrapper {
+.match-wrapper {
   position: relative;
   padding: 20px;
   cursor: pointer;
@@ -23,7 +19,7 @@ section.play-main .match-wrapper {
   color: #e2e3e5;
   text-decoration: none;
 }
-section.play-main .match-wrapper:before {
+.match-wrapper:before {
   position: absolute;
   content: "";
   background: url("/static/images/bg2.jpg") no-repeat center;
@@ -36,39 +32,40 @@ section.play-main .match-wrapper:before {
   z-index: -1;
   transition-duration: 0.3s;
 }
-section.play-main .match-wrapper:hover {
+.match-wrapper:hover {
   box-shadow: none;
+  text-decoration: none;
+  color: #ffffff;
 }
-section.play-main .match-wrapper:hover:before {
+.match-wrapper:hover:before {
   background-size: 115%;
   opacity: 0.6;
 }
-section.play-main .match-wrapper .match-name-main {
+.match-name-main {
   font-size: 25px;
   text-transform: uppercase;
   font-weight: 500;
 }
-section.play-main .match-wrapper .match-date {
+.match-date {
   font-size: 22px;
 }
-section.play-main .match-wrapper .match-countdown {
+.match-countdown {
   margin-top: 30px;
 }
-section.play-main .match-wrapper .match-countdown-wrapper {
-  display: flex;
-  justify-content: center;
-  font-size: 23px;
-  font-weight: 600;
+.match-countdown-wrapper {
+
+  font-size: 19px;
+  font-weight: 300;
 }
-section.play-main .match-wrapper .match-countdown-text {
+.match-wrapper .match-countdown-text {
   opacity: 0.8;
 }
-section.play-main .match-wrapper .match-pool {
+.match-wrapper .match-pool {
   margin-top: 30px;
 }
-section.play-main .match-wrapper .match-pool-text {
+.match-wrapper .match-pool-text {
   opacity: 0.8;
 }
-section.play-main .match-wrapper .match-pool-amount {
+.match-wrapper .match-pool-amount {
   font-size: 24px;
 }

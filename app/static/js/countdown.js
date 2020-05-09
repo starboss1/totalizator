@@ -16,15 +16,17 @@ $(function () {
             let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            $this.find(".js-days").text(days);
-            $this.find(".js-hours").text(hours);
-            $this.find(".js-minutes").text(minutes);
-            $this.find(".js-seconds").text(seconds);
+            if (days > 0)
+                $this.find(".js-days").text(days+' days');
+            if(hours > 0)
+            $this.find(".js-hours").text(hours+' hours');
+            $this.find(".js-minutes").text(minutes+ ' minutes');
+            $this.find(".js-seconds").text(seconds+ ' seconds');
 
             // If the count down is finished, write some text
             if (diff < 0) {
                 clearInterval(x);
-                $this.hide()
+                $this.parent().parent().parent().hide()
             }
             return updateCountdown;
         }(), 1000);

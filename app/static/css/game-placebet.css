@@ -1,45 +1,57 @@
-section.placebet {
-  margin-top: 40px;
+placebet {
+  margin-top: 60px;
   margin-bottom: 40px;
 }
-section.placebet .sticky-wrapper {
-  position: sticky;
-  top: 80px;
+.match-info-container {
+  margin-top: 60px;
 }
-section.placebet .match-actions-wrapper {
+.match-actions-wrapper {
   margin: 20px 0;
   padding: 15px 20px;
   background-color: rgba(42, 42, 50, 0.71);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
-section.placebet .match-info-wrapper {
+.match-info-wrapper {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  color: black;
+  color: white;
   position: relative;
 }
-section.placebet .match-info-wrapper:before {
+.match-info:before {
   position: absolute;
   content: "";
-  /*background: url("/static/images/bg1.jpg") no-repeat center;*/
+  background: url("/static/images/bg1.jpg") no-repeat center;
   background-size: 100%;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  opacity: 0.3;
+  opacity: 0.2;
   z-index: -1;
 }
-section.placebet .match-info-wrapper .bet-info {
+
+@media screen and (max-device-width: 500px) {
+  .match-info:before {
+  position: absolute;
+  content: "";
+  background: url("/static/images/bg1.jpg") no-repeat center;
+  background-size: 130%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.2;
+  z-index: -1;
+}
+}
+
+.bet-info {
   padding: 15px 20px;
   background-color: rgba(42, 42, 50, 0.71);
 }
-section.placebet .match-info-wrapper .bet-info .bet-wrapper {
+.bet-wrapper {
   display: flex;
   justify-content: space-between;
 }
-section.placebet .match-info-wrapper .bet-info .input-placebet {
+.input-placebet {
   display: block;
   flex: 1;
   border: 1px solid rgba(143, 143, 143, 0.8);
@@ -47,10 +59,10 @@ section.placebet .match-info-wrapper .bet-info .input-placebet {
   padding-left: 15px;
   padding-right: 15px;
   background-color: rgba(8, 8, 8, 0.35);
-  color: black;
+  color: white;
   min-width: 100px;
 }
-section.placebet .match-info-wrapper .match-info {
+.match-info {
   padding: 20px;
   display: flex;
   justify-content: space-between;
@@ -58,75 +70,74 @@ section.placebet .match-info-wrapper .match-info {
   text-align: center;
   text-decoration: none;
 }
-section.placebet .match-info-wrapper .match-info .match-name-main {
-  font-size: 20px;
+ .match-name-main {
+  font-size: 25px;
   text-transform: uppercase;
   font-weight: 600;
 }
-section.placebet .match-info-wrapper .match-info .match-name-sub {
-  opacity: 0.8;
-  font-size: 16px;
-}
-section.placebet .match-info-wrapper .match-info .match-countdown {
+.match-countdown {
   margin-top: 30px;
 }
-section.placebet .match-info-wrapper .match-info .match-countdown-wrapper {
+.match-countdown-wrapper {
   display: flex;
   justify-content: center;
   font-size: 20px;
   font-weight: 600;
 }
-section.placebet .match-info-wrapper .match-info .match-countdown-text {
-  opacity: 0.8;
+
+.match-countdown-wrapper > div {
+  margin: 0 3px;
 }
-section.placebet .match-info-wrapper .match-info .match-pool {
+
+.match-pool {
   margin-top: 30px;
 }
-section.placebet .match-info-wrapper .match-info .match-pool-text {
+ .match-pool-text {
   opacity: 0.8;
 }
-section.placebet .match-info-wrapper .match-info .match-pool-amount {
+.match-pool-amount {
   font-size: 20px;
 }
-section.placebet .table-events {
-  color: black;
+.table-events {
+  color: #e2e3e5;
   text-align: center;
 }
-section.placebet .table-events td {
+.table-events td {
   vertical-align: middle;
   border: none;
   padding: 10px;
 }
-section.placebet .table-events .event-wrapper:nth-of-type(odd) {
+.event-wrapper:nth-of-type(odd) {
   background-color: rgba(12, 12, 12, 0.15);
 }
-section.placebet .table-events .event-wrapper .event-index {
+.event-index {
   font-size: 14px;
   opacity: 0.8;
 }
-section.placebet .table-events .event-wrapper .event-datetime {
+.event-datetime {
   font-size: 14px;
   opacity: 0.8;
 }
-section.placebet .table-events .event-wrapper .event-name {
+.event-name {
   font-size: 16px;
 }
-section.placebet .table-events .event-wrapper .event-outcomes .outcome-stylized {
-  background: rgba(117, 117, 117, 0.54);
-  font-size: 14px;
-  padding: 5px 5px;
-  min-width: 55px;
+.outcome-stylized {
+  background: rgba(117, 102, 117, 0.75);
+  font-size: 18px;
+  padding: 6px 9px;
+  min-width: 60px;
   line-height: 1;
   display: inline-block;
   text-align: center;
 }
-section.placebet .table-events .event-wrapper .event-outcomes input {
+.event-outcomes input {
   display: none;
 }
-section.placebet .table-events .event-wrapper .event-outcomes input:checked + .outcome-stylized {
+.event-outcomes input:checked + .outcome-stylized {
   background: #008700;
+  transition-duration: 0.7s;
 }
-section.placebet .table-events .event-wrapper .event-outcomes .outcome-label {
+.event-outcomes .outcome-label {
   margin: 0;
   cursor: pointer;
   user-select: none;

@@ -12,11 +12,10 @@ $(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                showAlert(data['message'], "success");
-                // location.reload()
+                showMessage(data['message'], "success");
             },
             error: function (errMsg) {
-                showAlert(errMsg['responseJSON']['message'], "danger");
+                showMessage(errMsg['responseJSON']['message'], "danger");
             }
 
         })

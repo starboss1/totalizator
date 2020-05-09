@@ -1,14 +1,20 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, abort
 from flask_user import login_required, current_user
 
 from app.exceptions.game_exceptions import PlaceBetException
 from app.database.db_queries import db_queries
+from datetime import datetime
 
 game_blueprint = Blueprint('game', __name__)
 
 
 @game_blueprint.route('/play')
-def basket_play():
+def play():
+    try:
+        if current_user.has_roles('admin'):
+            return redirect('/admin')
+    except AttributeError:
+        pass
     matches = db_queries.get_pending_matches()
     return render_template('pages/games/games.html', matches=matches)
 
@@ -16,7 +22,11 @@ def basket_play():
 @game_blueprint.route('/play/<match_id>')
 @login_required
 def match_play(match_id):
+
     match = db_queries.get_match_by_id(match_id)
+    datetime_now = datetime.now()
+    if match.datetime_match < datetime_now:
+        return abort(404)
     possible_outcomes = db_queries.get_all_possible_outcomes()
     return render_template('pages/games/game_placebet.html', match=match, possible_outcomes=possible_outcomes)
 
@@ -25,7 +35,6 @@ def match_play(match_id):
 @login_required
 def place_bet():
     json = request.get_json()
-    print('json = ', json)
     amount = json['info']['amount']
     if amount == '':
         raise PlaceBetException(message="Provide bet amount data")

@@ -60,8 +60,3 @@ def bets():
 def logout():
     logout_user()
     return redirect('/')
-
-
-# @user_manager.user_loader()
-# def load_user(user_id):
-#     return db_queries.get_user_by_id(int(user_id))

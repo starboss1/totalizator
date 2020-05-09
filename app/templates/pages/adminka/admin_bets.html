@@ -5,10 +5,10 @@
 
     <section class="first-section">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h3>Matches list:</h3>
+        {% include "pages/adminka/components/add_match.html" %}
 
+                <div class="table-container">
+                    <h3>Matches list:</h3>
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
@@ -50,8 +50,7 @@
                         {% endfor %}
                     </table>
                 </div>
-            {% include "pages/adminka/components/add_match.html" %}
-            </div>
+
         </div>
     </section>
 {% endblock %}

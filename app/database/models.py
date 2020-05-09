@@ -72,7 +72,7 @@ class Match(db.Model):
     __tablename__ = 'matches'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False)
     datetime_match = db.Column(db.DateTime, nullable=True)
     is_finished = db.Column(db.Boolean, nullable=False, default=False)
     events = db.relationship('Event', back_populates='match', order_by='Event.id')
@@ -91,21 +91,14 @@ class Match(db.Model):
     def all_bets(self):
         bets = set()
         if len(self.events) > 0:
-            for p in self.events[0].bets:
-                bets.add(p)
+            for event in self.events:
+                for b in event.bets:
+                    bets.add(b)
         return bets
 
     @hybrid_property
     def pool_amount(self):
         return reduce(lambda x, y: x+y.amount, self.all_bets, 0)
-
-    @hybrid_property
-    def all_players(self):
-        players = set()
-        for p in self.all_bets:
-            players.add(p.user)
-        return players
-
 
 class Bet(db.Model):
     __tablename__ = 'bets'

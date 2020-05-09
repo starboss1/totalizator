@@ -8,6 +8,10 @@
   font-weight: 400;
 }
 
+.form-new-user{
+  text-align: center;
+}
+
 
 .form-signin .form-control {
   position: relative;

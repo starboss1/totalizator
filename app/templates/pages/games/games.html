@@ -6,11 +6,12 @@
 {% endblock %}
 
 {% block content %}
-    <section class="play-main">
+    <section class="first-section">
         <div class="container">
             <h2 class="page-title">Matches</h2>
             <div class="row matches-row">
                 {% for match in matches %}
+                    {{ len }}
                     <div class="col-sm-12 col-md-6 match-column">
                         <a href="/play/{{ match.id }}" class="match-wrapper">
                             <div class="match-name">
@@ -21,25 +22,7 @@
                                 <div>Start at</div>
                                 <div>{{ match.datetime_match }}</div>
                             </div>
-                            <div class="match-countdown">
-                                <div class="match-countdown-text">Remaining time</div>
-                                <div class="match-countdown-wrapper" data-countdown="{{ match.datetime_match }}">
-                                    <div class="js-days"></div>
-                                    <div class="divider">:</div>
-                                    <div class="js-hours"></div>
-                                    <div class="divider">:</div>
-                                    <div class="js-minutes"></div>
-                                    <div class="divider">:</div>
-                                    <div class="js-seconds"></div>
-                                </div>
-                            </div>
-
-                            <div class="match-pool">
-                                <div class="match-pool-text">Pool:</div>
-                                <div class="match-pool-amount">
-                                    {{ match.pool_amount }}
-                                </div>
-                            </div>
+                            {% include "/pages/games/components/countdown.html" %}
                         </a>
                     </div>
                 {% endfor %}
