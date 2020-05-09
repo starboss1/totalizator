@@ -18,7 +18,8 @@ class Config(object):
     DB_PASS = os.getenv('DB_PASS')
     DB_USER = os.getenv('DB_USER')
 
-    #SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    # SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     USER_ENABLE_EMAIL = False
