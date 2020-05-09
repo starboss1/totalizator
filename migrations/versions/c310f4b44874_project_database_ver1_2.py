@@ -26,12 +26,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    op.create_table('roles',
-    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('name', sa.String(length=60), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
-    )
     op.create_table('bets',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('amount', sa.Float(), nullable=False),
