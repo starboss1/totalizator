@@ -9,7 +9,7 @@ class Config(object):
     CSRF_ENABLED = True
     PORT = 8000
     HOST = "localhost"
-    SECRET_KEY = 'course-work-totalizator-secret'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
     DB_NAME = os.getenv('DB_NAME')
     DB_PORT = os.getenv('DB_PORT')
